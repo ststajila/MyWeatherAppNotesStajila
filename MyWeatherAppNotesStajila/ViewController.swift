@@ -14,6 +14,10 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
 
-
+    func getWeather(){
+       //creating a session
+        let session = URLSession.shared
+        
+        let weatherURL = URL(
 }
 
