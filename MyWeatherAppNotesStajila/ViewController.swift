@@ -9,7 +9,9 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    @IBOutlet weak var weatherLabel: UILabel!
+    @IBOutlet weak var tempLabel: UILabel!
+    @IBOutlet weak var highTempLabel: UILabel!
+    @IBOutlet weak var lowTempLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,10 +48,22 @@ class ViewController: UIViewController {
                             if let temp = main.value(forKey: "temp") as? Double{
                                 //Making it happen on the main thread, gets data before shows up on the label
                                 DispatchQueue.main.async {
-                                    self.weatherLabel.text = "\(temp)"
+                                    self.tempLabel.text = "\(temp)"
+                                
+                                }
+                            }
+                            if let highTemp = main.value(forKey: "temp_max") as? Double{
+                                DispatchQueue.main.async{
+                                    self.highTempLabel.text = "High: \(highTemp)"
+                                }
+                                if let lowTemp = main.value(forKey: "temp_min") as? Double{
+                                    DispatchQueue.main.async{
+                                        self.lowTempLabel.text = "Low: \(lowTemp)"
+                                    }
                                 }
                             }
                         }
+                        
                         
                         
                         
