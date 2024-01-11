@@ -12,6 +12,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var tempLabel: UILabel!
     @IBOutlet weak var highTempLabel: UILabel!
     @IBOutlet weak var lowTempLabel: UILabel!
+    @IBOutlet weak var humidityLabel: UILabel!
+    @IBOutlet weak var sunsetTime: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,6 +47,7 @@ class ViewController: UIViewController {
                         
                         // needs as since return type Any
                         if let main = jsonObj.value(forKey: "main") as? NSDictionary {
+                            
                             if let temp = main.value(forKey: "temp") as? Double{
                                 //Making it happen on the main thread, gets data before shows up on the label
                                 DispatchQueue.main.async {
@@ -52,18 +55,34 @@ class ViewController: UIViewController {
                                 
                                 }
                             }
+                            
                             if let highTemp = main.value(forKey: "temp_max") as? Double{
                                 DispatchQueue.main.async{
                                     self.highTempLabel.text = "High: \(highTemp)"
                                 }
+                                
                                 if let lowTemp = main.value(forKey: "temp_min") as? Double{
                                     DispatchQueue.main.async{
                                         self.lowTempLabel.text = "Low: \(lowTemp)"
                                     }
                                 }
                             }
+                            
+                            if let humidity = main.value(forKey: "humidity") as? Double{
+                                DispatchQueue.main.async{
+                                    self.humidityLabel.text = "Humidity: \(humidity)"
+                                }
+                            }
                         }
                         
+                        
+                        if let sys = jsonObj.value(forKey: "sys") as? NSDictionary{
+                            if let sunsetTime = sys.value(forKey: "sunset") as? Int{
+                                DispatchQueue.main.async{
+                                    self.sunsetTime.text = "Sunset Time: \(sunsetTime)"
+                                }
+                            }
+                        }
                         
                         
                         
