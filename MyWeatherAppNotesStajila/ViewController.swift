@@ -70,16 +70,17 @@ class ViewController: UIViewController {
                             
                             if let humidity = main.value(forKey: "humidity") as? Double{
                                 DispatchQueue.main.async{
-                                    self.humidityLabel.text = "Humidity: \(humidity)"
+                                    self.humidityLabel.text = "Humidity: \(humidity)%"
                                 }
                             }
                         }
                         
                         
                         if let sys = jsonObj.value(forKey: "sys") as? NSDictionary{
-                            if let sunsetTime = sys.value(forKey: "sunset") as? Int{
+                            if let sunsetTime = sys.value(forKey: "sunset") as? Double{
                                 DispatchQueue.main.async{
-                                    self.sunsetTime.text = "Sunset Time: \(sunsetTime)"
+                                    let date = Date(timeIntervalSince1970: sunsetTime)
+                                    self.sunsetTime.text = "Sunset Time: \(date.formatted(date: .omitted, time: .shortened))"
                                 }
                             }
                         }
